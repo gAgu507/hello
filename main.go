@@ -6,16 +6,32 @@ import (
 )
 
 var (
-	attempts = 7
+	play_again   = "y"
+	max_attempts = 7
 )
 
 func main() {
 	x := rand.Intn(100) + 1
+	result := play_session(x)
+	fmt.Println(result)
+	fmt.Print("Want to play again? (y/n): ")
+	fmt.Scan(&play_again)
+	for play_again == "y" {
+		x = rand.Intn(100) + 1
+		result = play_session(x)
+		fmt.Println(result)
+		fmt.Print("Want to play again? (y/n): ")
+		fmt.Scan(&play_again)
+	}
+}
+
+func play_session(x int) string {
+	result := "You lost"
 	counter := 1
 	guess := 0
 	fmt.Print("Enter a number from 1 to 100: ")
 	fmt.Scan(&guess)
-	for guess != x && counter <= attempts {
+	for guess != x && counter <= max_attempts {
 		counter++
 		if guess < x {
 			fmt.Println("Too low!")
@@ -25,9 +41,8 @@ func main() {
 		fmt.Print("Enter a number: ")
 		fmt.Scan(&guess)
 	}
-	if attempts <= counter {
-		fmt.Println("You lost! The number was", x)
-		return
+	if x == guess {
+		result = "You win!"
 	}
-	fmt.Println("You guessed it!")
+	return result
 }
