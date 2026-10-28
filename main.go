@@ -1,7 +1,23 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+)
 
 func main() {
-	fmt.Println("Pushing to GitHub's but from the new branch")
+	x := rand.Intn(100) + 1
+	guess := 0
+	fmt.Print("Enter a number from 1 to 100: ")
+	fmt.Scan(&guess)
+	for guess != x {
+		if guess < x {
+			fmt.Println("Too low!")
+		} else {
+			fmt.Println("Too high!")
+		}
+		fmt.Print("Enter a number: ")
+		fmt.Scan(&guess)
+	}
+	fmt.Println("You guessed it!")
 }
